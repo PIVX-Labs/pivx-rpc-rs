@@ -1,0 +1,13 @@
+[package]
+name = "pivx-rpc-rs"
+version = "0.1.0"
+edition = "2023"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+failure = "0.1.5"
+reqwest = "0.9.18"
+serde = { version = "1.0.92", features = ["derive"] }
+serde_json = { version = "1.0.39", features = ["arbitrary_precision"] }
+throttled_json_rpc = "0.0.5"
