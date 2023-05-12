@@ -389,10 +389,29 @@ pub struct BudgetInfo {
     pub allotted: f64,
 }
 
+#[derive(Debug, Deserialize, Serialize)]
+pub struct ColdUtxo {
+    pub txid: String,
+    pub txidn: u32,
+    pub amount: f64,
+    pub confirmations: u32,
+    #[serde(rename = "cold-staker")]
+    pub cold_staker: String,
+    #[serde(rename = "coin-owner")]
+    pub coin_owner: String,
+    pub whitelisted: bool,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct ListColdUtxos {
+    pub coldutxos: Vec<ColdUtxo>,
+}
+
 jsonrpc_client!(pub struct BitcoinRpcClient {
     single:
         pub fn createrawtransaction(&self, inputs: &[TxInput], outputs: &HashMap<&str, f64>, locktime: Option<u32>) -> Result<String>;
         pub fn dumpprivkey(&self, address: &str) -> Result<String>;
+        pub fn delegatoradd(&self, address: &str, label: Option<&str>) -> Result<bool>;
         pub fn generate(&self, number: usize, iterations: Option<usize>) -> Result<Vec<String>>;
         pub fn getbestblockhash(&self) -> Result<String>;
         pub fn getinfo(&self) -> Result<GetInfo>;
@@ -406,6 +425,7 @@ jsonrpc_client!(pub struct BitcoinRpcClient {
         pub fn getnewaddress(&self, account: Option<&str>, address_type: Option<&str>) -> Result<String>;
         pub fn getrawmempool(&self, format: bool) -> Result<RawMemPool>;
         pub fn listmasternodes(&self, mn_addr: Option<&str>) -> Result<Vec<MasternodeList>>;
+        pub fn listcoldutxos(&self) -> Result<Vec<ListColdUtxos>>;
         pub fn sendrawtransaction(&self, transaction: &str, allow_high_fee: Option<bool>) -> Result<String>;
         pub fn sendtoaddress(&self, address: &str, amount: f64, comment: Option<&str>, comment_to: Option<&str>, include_fee: Option<bool>) -> Result<String>;
         pub fn signrawtransaction(&self, transaction: &str, outputs: Option<&[TxOutput]>, privkeys: Option<&[&str]>, sig_hash_type: Option<&str>) -> Result<SignedTx>;
