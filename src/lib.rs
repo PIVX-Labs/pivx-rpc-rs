@@ -9,15 +9,15 @@ use std::collections::HashMap;
 
 pub type SerializedData = String;
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Block {
     pub hash: String,
-    pub confirmations: i32,
-    pub height: i32,
+    pub confirmations: i64,
+    pub height: i64,
     pub version: i32,
     pub merkleroot: String,
-    pub time: i32,
-    pub mediantime: i32,
+    pub time: i64,
+    pub mediantime: i64,
     pub nonce: i64,
     pub bits: String,
     pub difficulty: f32,
@@ -27,7 +27,7 @@ pub struct Block {
     pub previousblockhash: Option<String>,
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct FullBlock {
     pub hash: String,
     pub confirmations: i32,
@@ -40,9 +40,9 @@ pub struct FullBlock {
     pub tx: Vec<String>,
     pub time: u32,
     pub mediantime: u32,
-    pub nonce: i32,
+    pub nonce: i64,
     pub bits: String,
-    pub difficulty: f32,
+    pub difficulty: f64,
     pub chainwork: String,
     pub previousblockhash: Option<String>,
     pub nextblockhash: Option<String>,
@@ -50,7 +50,7 @@ pub struct FullBlock {
     pub hashproofofstake: Option<String>,
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Transaction {
     pub txid: String,
     pub version: i32,
@@ -67,7 +67,60 @@ pub struct Transaction {
     pub blocktime: Option<i32>,
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct GetRawTransactionInfo {
+    pub txid: String,
+    pub version: u64,
+    pub r#type: u64,
+    pub size: u64,
+    pub locktime: u64,
+    pub vin: Vec<VinTx>,
+    pub vout: Vec<Vout>,
+    pub hex: String,
+    pub value_balance: Option<f64>,
+    pub value_balance_sat: Option<u64>,
+    pub vshield_spend: Option<Vec<VShieldSpend>>,
+    pub vshield_output: Option<Vec<VShieldOutput>>,
+    pub binding_sig: Option<String>,
+    pub shielded_addresses: Option<Vec<String>>,
+    pub extra_payload_size: Option<u64>,
+    pub extra_payload: Option<String>,
+    pub blockhash: Option<String>,
+    pub confirmations: Option<u64>,
+    pub time: Option<u64>,
+    pub blocktime: Option<u64>,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct TransactionDetail {
+    pub address: String,
+    pub category: String,
+    pub amount: f64,
+    pub label: String,
+    pub vout: u64,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct VShieldSpend {
+    pub cv: String,
+    pub anchor: String,
+    pub nullifier: String,
+    pub rk: String,
+    pub proof: String,
+    pub spend_auth_sig: String,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct VShieldOutput {
+    pub cv: String,
+    pub cmu: String,
+    pub ephemeral_key: String,
+    pub enc_ciphertext: String,
+    pub out_ciphertext: String,
+    pub proof: String,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
 #[serde(untagged)]
 pub enum Vin {
     Coinbase(VinCoinbase),
@@ -75,22 +128,22 @@ pub enum Vin {
     Tx(VinTx),
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct VinTx {
     pub txid: String,
     pub vout: i32,
     pub script_sig: ScriptSig,
-    pub sequence: i32,
+    pub sequence: i64,
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct VinCoinbase {
     pub coinbase: String,
-    pub sequence: i32,
+    pub sequence: i64,
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Vout {
     pub value: f32,
@@ -99,7 +152,7 @@ pub struct Vout {
     pub script_pub_key: ScriptPubKey,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Serialize, Debug, serde::Deserialize)]
 pub struct BlockChainInfo {
     pub chain: String,
     pub blocks: u64,
@@ -115,25 +168,25 @@ pub struct BlockChainInfo {
     pub warnings: String,
 }
 
-#[derive(Debug, serde::Deserialize, Clone)]
+#[derive(Serialize, Debug, serde::Deserialize, Clone)]
 pub struct ShieldPoolValue {
     pub chainValue: f64,
     pub valueDelta: f64,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Serialize, Debug, serde::Deserialize)]
 pub struct Softfork {
     pub id: String,
     pub version: u32,
     pub reject: Reject,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Serialize, Debug, serde::Deserialize)]
 pub struct Reject {
     pub status: bool,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Serialize, Debug, serde::Deserialize)]
 pub struct Upgrades {
     #[serde(rename = "PoS")]
     pub pos: Upgrade,
@@ -160,14 +213,14 @@ pub struct Upgrades {
     pub pivx_v5_5: Upgrade,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Serialize, Debug, serde::Deserialize)]
 pub struct Upgrade {
     pub activationheight: u64,
     pub status: String,
     pub info: String,
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Tip {
     pub height: i32,
     pub hash: String,
@@ -175,7 +228,7 @@ pub struct Tip {
     pub status: String,
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct MemPoolInfo {
     pub loaded: bool,
     pub size: i32,
@@ -185,7 +238,7 @@ pub struct MemPoolInfo {
     pub minrelaytxfee: i32,
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct ScriptPubKey {
     pub asm: String,
     pub hex: String,
@@ -196,13 +249,13 @@ pub struct ScriptPubKey {
     pub addresses: Option<Vec<String>>,
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct ScriptSig {
     pub asm: String,
     pub hex: String,
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct TxOut {
     pub bestblock: String,
@@ -212,14 +265,14 @@ pub struct TxOut {
     pub coinbase: bool,
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 #[serde(untagged)]
 pub enum GetTxOutReply {
     Null(()),
     TxOut(TxOut),
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct TxOutSetInfo {
     pub height: u32,
     pub bestblock: String,
@@ -230,7 +283,7 @@ pub struct TxOutSetInfo {
     pub disk_size: u32,
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct MemPoolTx {
     pub size: serde_json::Number,
     pub fee: serde_json::Number,
@@ -247,14 +300,14 @@ pub struct MemPoolTx {
     pub depends: Vec<String>,
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 #[serde(untagged)]
 pub enum RawMemPool {
     True(HashMap<String, MemPoolTx>),
     False(Vec<String>),
 }
 
-#[derive(Serialize, Clone, Debug)]
+#[derive(Serialize,   Clone, Debug)]
 pub struct TxInput {
     pub txid: String,
     pub vout: i32,
@@ -262,7 +315,7 @@ pub struct TxInput {
     pub sequence: Option<u32>,
 }
 
-#[derive(Serialize, Clone, Debug)]
+#[derive(Serialize,   Clone, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct TxOutput {
     pub txid: String,
@@ -272,7 +325,7 @@ pub struct TxOutput {
     pub amount: f32,
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct SignedTx {
     pub hex: String,
     pub complete: bool,
@@ -295,7 +348,7 @@ pub struct MasternodeList {
     pub lastpaid: f32,
 }
 
-#[derive(Debug, Deserialize, Clone)]
+#[derive(Serialize, Debug, Deserialize, Clone)]
 pub struct PivxStatus {
     staking_status: bool,
     staking_enabled: bool,
@@ -313,7 +366,7 @@ pub struct PivxStatus {
     lastattempt_tries: i64,
 }
 
-#[derive(Debug, Deserialize, Clone)]
+#[derive(Serialize, Debug, Deserialize, Clone)]
 pub struct MasternodeCount {
     total: i32,
     stable: i32,
@@ -416,14 +469,15 @@ jsonrpc_client!(pub struct BitcoinRpcClient {
         pub fn getbestblockhash(&self) -> Result<String>;
         pub fn getinfo(&self) -> Result<GetInfo>;
         pub fn getblockchaininfo(&self) -> Result<BlockChainInfo>;
-        pub fn getblockcount(&self) -> Result<u32>;
+        pub fn getblockcount(&self) -> Result<i64>;
         pub fn getblock(&self, block_hash: String) -> Result<FullBlock>;
-        pub fn getblockhash(&self, block_height: u32) -> Result<String>;
+        pub fn getblockhash(&self, block_height: i64) -> Result<String>;
         pub fn getblockheader(&self, block_hash: String) -> Result<Block>;
         pub fn getbudgetinfo(&self) -> Result<Vec<BudgetInfo>>;
         pub fn getmasternodecount(&self) -> Result<MasternodeCount>;
         pub fn getnewaddress(&self, account: Option<&str>, address_type: Option<&str>) -> Result<String>;
         pub fn getrawmempool(&self, format: bool) -> Result<RawMemPool>;
+        pub fn getrawtransaction(&self, txid: String, verbose: bool) -> Result<GetRawTransactionInfo>;
         pub fn listmasternodes(&self, mn_addr: Option<&str>) -> Result<Vec<MasternodeList>>;
         pub fn listcoldutxos(&self) -> Result<Vec<ListColdUtxos>>;
         pub fn sendrawtransaction(&self, transaction: &str, allow_high_fee: Option<bool>) -> Result<String>;
