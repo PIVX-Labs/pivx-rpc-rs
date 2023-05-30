@@ -1,5 +1,5 @@
 [package]
-name = "pivx-rpc-rs"
+name = "pivx_rpc_rs"
 version = "0.1.0"
 edition = "2023"
 
