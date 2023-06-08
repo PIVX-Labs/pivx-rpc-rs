@@ -7,8 +7,6 @@ extern crate throttled_json_rpc;
 
 use std::collections::HashMap;
 
-pub type SerializedData = String;
-
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Block {
     pub hash: String,
@@ -52,7 +50,7 @@ pub struct FullBlock {
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Transaction {
-    pub txid: String,
+    pub txid: Option<String>,
     pub version: i32,
     #[serde(rename = "type")]
     pub tx_type: i32,
@@ -131,10 +129,11 @@ pub enum Vin {
 #[derive(Serialize, Deserialize, Clone, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct VinTx {
-    pub txid: String,
-    pub vout: i32,
-    pub script_sig: ScriptSig,
-    pub sequence: i64,
+    pub coinbase: Option<String>,
+    pub txid: Option<String>,
+    pub vout: Option<i32>,
+    pub script_sig: Option<ScriptSig>,
+    pub sequence: Option<i64>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -169,9 +168,10 @@ pub struct BlockChainInfo {
 }
 
 #[derive(Serialize, Debug, serde::Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct ShieldPoolValue {
-    pub chainValue: f64,
-    pub valueDelta: f64,
+    pub chain_value: f64,
+    pub value_delta: f64,
 }
 
 #[derive(Serialize, Debug, serde::Deserialize)]
@@ -192,7 +192,8 @@ pub struct Upgrades {
     pub pos: Upgrade,
     #[serde(rename = "PoS v2")]
     pub pos_v2: Upgrade,
-    pub Zerocoin: Upgrade,
+    #[serde(rename = "Zerocoin")]
+    pub zerocoin: Upgrade,
     #[serde(rename = "Zerocoin v2")]
     pub zerocoin_v2: Upgrade,
     #[serde(rename = "BIP65")]
@@ -245,7 +246,7 @@ pub struct ScriptPubKey {
     #[serde(rename = "reqSigs")]
     pub req_sigs: Option<i64>,
     #[serde(rename = "type")]
-    pub script_type: String,
+    pub script_type: Option<String>,
     pub addresses: Option<Vec<String>>,
 }
 
