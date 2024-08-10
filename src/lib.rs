@@ -7,6 +7,8 @@ extern crate throttled_json_rpc;
 
 use std::collections::HashMap;
 
+pub type SerializedData = String;
+
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Block {
     pub hash: String,
@@ -35,7 +37,7 @@ pub struct FullBlock {
     pub merkleroot: String,
     pub acc_checkpoint: String,
     pub finalsaplingroot: String,
-    pub tx: Vec<String>,
+    pub tx: Vec<Transaction>,
     pub time: u32,
     pub mediantime: u32,
     pub nonce: i64,
@@ -351,31 +353,31 @@ pub struct MasternodeList {
 
 #[derive(Serialize, Debug, Deserialize, Clone)]
 pub struct PivxStatus {
-    staking_status: bool,
-    staking_enabled: bool,
-    coldstaking_enabled: bool,
-    haveconnections: bool,
-    mnsync: bool,
-    walletunlocked: bool,
-    stakeablecoins: i128,
-    stakingbalance: f64,
-    stakesplitthreshold: f64,
-    lastattempt_age: i64,
-    lastattempt_depth: i64,
-    lastattempt_hash: String,
-    lastattempt_coins: i128,
-    lastattempt_tries: i64,
+    pub staking_status: bool,
+    pub staking_enabled: bool,
+    pub coldstaking_enabled: bool,
+    pub haveconnections: bool,
+    pub mnsync: bool,
+    pub walletunlocked: bool,
+    pub stakeablecoins: i128,
+    pub stakingbalance: f64,
+    pub stakesplitthreshold: f64,
+    pub lastattempt_age: i64,
+    pub lastattempt_depth: i64,
+    pub lastattempt_hash: String,
+    pub lastattempt_coins: i128,
+    pub lastattempt_tries: i64,
 }
 
 #[derive(Serialize, Debug, Deserialize, Clone)]
 pub struct MasternodeCount {
-    total: i32,
-    stable: i32,
-    enabled: i32,
-    inqueue: i32,
-    ipv4: i32,
-    ipv6: i32,
-    onion: i32,
+    pub total: i32,
+    pub stable: i32,
+    pub enabled: i32,
+    pub inqueue: i32,
+    pub ipv4: i32,
+    pub ipv6: i32,
+    pub onion: i32,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -461,6 +463,14 @@ pub struct ListColdUtxos {
     pub coldutxos: Vec<ColdUtxo>,
 }
 
+#[derive(Debug, Deserialize, Serialize)]
+pub struct MoneySupply {
+    pub update: i64,
+    pub transparentsupply: f64,
+    pub shieldsupply: f64,
+    pub totalsupply: f64,
+}
+
 jsonrpc_client!(pub struct BitcoinRpcClient {
     single:
         pub fn createrawtransaction(&self, inputs: &[TxInput], outputs: &HashMap<&str, f64>, locktime: Option<u32>) -> Result<String>;
@@ -479,6 +489,7 @@ jsonrpc_client!(pub struct BitcoinRpcClient {
         pub fn getnewaddress(&self, account: Option<&str>, address_type: Option<&str>) -> Result<String>;
         pub fn getrawmempool(&self, format: bool) -> Result<RawMemPool>;
         pub fn getrawtransaction(&self, txid: String, verbose: bool) -> Result<GetRawTransactionInfo>;
+        pub fn getsupplyinfo(&self, update: bool) -> Result<MoneySupply>;
         pub fn listmasternodes(&self, mn_addr: Option<&str>) -> Result<Vec<MasternodeList>>;
         pub fn listcoldutxos(&self) -> Result<Vec<ListColdUtxos>>;
         pub fn sendrawtransaction(&self, transaction: &str, allow_high_fee: Option<bool>) -> Result<String>;
@@ -486,6 +497,7 @@ jsonrpc_client!(pub struct BitcoinRpcClient {
         pub fn signrawtransaction(&self, transaction: &str, outputs: Option<&[TxOutput]>, privkeys: Option<&[&str]>, sig_hash_type: Option<&str>) -> Result<SignedTx>;
         pub fn gettxout(&self, txid: &str, vout: u32, unconfirmed: bool) -> Result<Option<TxOut>>;
         pub fn getstakingstatus(&self) -> Result<PivxStatus>;
+        pub fn relaymasternodebroadcast(&self, hex_mnb: &str) -> Result<String>;
     enum:
         #[cfg(all(not(feature = "btc")))] pub fn getblockinfo(&self) -> Result<Zero(SerializedData)|One(Block)|Two(FullBlock)>;
     });
