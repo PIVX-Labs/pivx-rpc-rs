@@ -9,6 +9,10 @@ use std::collections::HashMap;
 
 pub type SerializedData = String;
 
+fn default_string() -> String {
+    "".to_string()
+}
+
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Block {
     pub hash: String,
@@ -22,7 +26,9 @@ pub struct Block {
     pub bits: String,
     pub difficulty: f32,
     pub chainwork: String,
+    #[serde(default = "default_string")]
     pub acc_checkpoint: String,
+    #[serde(default)]
     pub shield_pool_value: ShieldPoolValue,
     pub previousblockhash: Option<String>,
 }
@@ -35,7 +41,9 @@ pub struct FullBlock {
     pub height: i64,
     pub version: i32,
     pub merkleroot: String,
+    #[serde(default = "default_string")]
     pub acc_checkpoint: String,
+    #[serde(default = "default_string")]
     pub finalsaplingroot: String,
     pub tx: Vec<Transaction>,
     pub time: u32,
@@ -102,21 +110,33 @@ pub struct TransactionDetail {
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct VShieldSpend {
+    #[serde(default = "default_string")]
     pub cv: String,
+    #[serde(default = "default_string")]
     pub anchor: String,
+    #[serde(default = "default_string")]
     pub nullifier: String,
+    #[serde(default = "default_string")]
     pub rk: String,
+    #[serde(default = "default_string")]
     pub proof: String,
+    #[serde(default = "default_string")]
     pub spend_auth_sig: String,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct VShieldOutput {
+    #[serde(default = "default_string")]
     pub cv: String,
+    #[serde(default = "default_string")]
     pub cmu: String,
+    #[serde(default = "default_string")]
     pub ephemeral_key: String,
+    #[serde(default = "default_string")]
     pub enc_ciphertext: String,
+    #[serde(default = "default_string")]
     pub out_ciphertext: String,
+    #[serde(default = "default_string")]
     pub proof: String,
 }
 
@@ -162,6 +182,7 @@ pub struct BlockChainInfo {
     pub difficulty: f64,
     pub verificationprogress: f64,
     pub chainwork: String,
+    #[serde(default)]
     pub shield_pool_value: ShieldPoolValue,
     pub initial_block_downloading: bool,
     pub softforks: Vec<Softfork>,
@@ -169,7 +190,7 @@ pub struct BlockChainInfo {
     pub warnings: String,
 }
 
-#[derive(Serialize, Debug, serde::Deserialize, Clone)]
+#[derive(Serialize, Debug, serde::Deserialize, Clone, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct ShieldPoolValue {
     pub chain_value: f64,
@@ -190,33 +211,45 @@ pub struct Reject {
 
 #[derive(Serialize, Debug, serde::Deserialize)]
 pub struct Upgrades {
+    #[serde(default)]
     #[serde(rename = "PoS")]
     pub pos: Upgrade,
+    #[serde(default)]
     #[serde(rename = "PoS v2")]
     pub pos_v2: Upgrade,
+    #[serde(default)]
     #[serde(rename = "Zerocoin")]
     pub zerocoin: Upgrade,
+    #[serde(default)]
     #[serde(rename = "Zerocoin v2")]
     pub zerocoin_v2: Upgrade,
+    #[serde(default)]
     #[serde(rename = "BIP65")]
     pub bip65: Upgrade,
+    #[serde(default)]
     #[serde(rename = "Zerocoin Public")]
     pub zerocoin_public: Upgrade,
+    #[serde(default)]
     #[serde(rename = "PIVX v3.4")]
     pub pivx_v3_4: Upgrade,
+    #[serde(default)]
     #[serde(rename = "PIVX v4.0")]
     pub pivx_v4_0: Upgrade,
+    #[serde(default)]
     #[serde(rename = "v5 shield")]
     pub v5_shield: Upgrade,
+    #[serde(default)]
     #[serde(rename = "PIVX v5.2")]
     pub pivx_v5_2: Upgrade,
+    #[serde(default)]
     #[serde(rename = "PIVX v5.3")]
     pub pivx_v5_3: Upgrade,
+    #[serde(default)]
     #[serde(rename = "PIVX v5.5")]
     pub pivx_v5_5: Upgrade,
 }
 
-#[derive(Serialize, Debug, serde::Deserialize)]
+#[derive(Serialize, Debug, serde::Deserialize, Default)]
 pub struct Upgrade {
     pub activationheight: u64,
     pub status: String,
@@ -387,16 +420,21 @@ pub struct GetInfo {
     pub services: String,
     pub walletversion: i32,
     pub balance: f64,
+    #[serde(default)]
     #[serde(rename = "staking status")]
     pub staking_status: String,
     pub blocks: i32,
+    #[serde(default)]
     pub timeoffset: i32,
     pub connections: i32,
     pub proxy: String,
     pub difficulty: f64,
     pub testnet: bool,
+    #[serde(default)]
     pub moneysupply: f64,
+    #[serde(default)]
     pub transparentsupply: f64,
+    #[serde(default)]
     pub shieldsupply: f64,
     pub keypoololdest: i64,
     pub keypoolsize: i32,
