@@ -1,4 +1,3 @@
-#[macro_use]
 extern crate failure;
 #[macro_use]
 extern crate serde;
@@ -537,5 +536,5 @@ jsonrpc_client!(pub struct BitcoinRpcClient {
         pub fn getstakingstatus(&self) -> Result<PivxStatus>;
         pub fn relaymasternodebroadcast(&self, hex_mnb: &str) -> Result<String>;
     enum:
-        #[cfg(all(not(feature = "btc")))] pub fn getblockinfo(&self) -> Result<Zero(SerializedData)|One(Block)|Two(FullBlock)>;
+        pub fn getblockinfo(&self) -> Result<Zero(SerializedData)|One(Block)|Two(FullBlock)>;
     });
