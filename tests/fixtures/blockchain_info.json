@@ -1,0 +1,45 @@
+{
+  "chain": "main",
+  "blocks": 1000000,
+  "headers": 1000000,
+  "bestblockhash": "0000000000000abcdef1234567890abcdef1234567890abcdef1234567890abc",
+  "difficulty": 1234.5678,
+  "verificationprogress": 0.9999999,
+  "chainwork": "00000000000000000000000000000000000000000000001234567890abcdef",
+  "shield_pool_value": {
+    "chainValue": 5000000.0,
+    "valueDelta": 100.0
+  },
+  "initial_block_downloading": false,
+  "softforks": [
+    {
+      "id": "bip65",
+      "version": 4,
+      "enforce": {
+        "status": true,
+        "found": 1000,
+        "required": 750,
+        "window": 1000
+      },
+      "reject": {
+        "status": true,
+        "found": 1000,
+        "required": 950,
+        "window": 1000
+      }
+    }
+  ],
+  "upgrades": {
+    "5ba81b19": {
+      "name": "Overwinter",
+      "activationheight": 862000,
+      "status": "active"
+    },
+    "76b809bb": {
+      "name": "Sapling",
+      "activationheight": 862000,
+      "status": "active"
+    }
+  },
+  "warnings": ""
+}

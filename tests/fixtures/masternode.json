@@ -1,0 +1,14 @@
+{
+  "rank": 1,
+  "type": "masternode",
+  "network": "ipv4",
+  "txhash": "abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+  "outidx": 0,
+  "pubkey": "DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6",
+  "status": "ENABLED",
+  "addr": "123.45.67.89:51472",
+  "version": 70926,
+  "lastseen": 1704240000,
+  "activetime": 2592000,
+  "lastpaid": 10.0
+}

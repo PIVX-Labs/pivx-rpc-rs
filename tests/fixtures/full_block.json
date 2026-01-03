@@ -1,0 +1,46 @@
+{
+  "hash": "0000000000000abcdef1234567890abcdef1234567890abcdef1234567890abc",
+  "confirmations": 12345,
+  "size": 2048,
+  "height": 1000000,
+  "version": 7,
+  "merkleroot": "abcdef1234567890abcdef1234567890abcdef1234567890abcdef123456789",
+  "acc_checkpoint": "fedcba0987654321fedcba0987654321fedcba0987654321fedcba098765432",
+  "finalsaplingroot": "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcd",
+  "tx": [
+    {
+      "txid": "abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+      "version": 2,
+      "type": 0,
+      "size": 250,
+      "locktime": 0,
+      "hex": "0200000001abcdef1234567890",
+      "vin": [
+        {
+          "coinbase": "03e0930a1f2f5669614254432f",
+          "sequence": 4294967295
+        }
+      ],
+      "vout": [
+        {
+          "value": 50.0,
+          "n": 0,
+          "scriptPubKey": {
+            "asm": "OP_DUP OP_HASH160 abcdef1234567890abcdef1234567890abcdef12 OP_EQUALVERIFY OP_CHECKSIG",
+            "hex": "76a914abcdef1234567890abcdef1234567890abcdef1288ac",
+            "reqSigs": 1,
+            "type": "pubkeyhash",
+            "addresses": ["DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6"]
+          }
+        }
+      ]
+    }
+  ],
+  "time": 1704240000,
+  "mediantime": 1704239500,
+  "nonce": 987654321,
+  "bits": "1a0fffff",
+  "difficulty": 1234.5678,
+  "chainwork": "00000000000000000000000000000000000000000000001234567890abcdef",
+  "previousblockhash": "0000000000000fedcba9876543210fedcba9876543210fedcba987654321000"
+}

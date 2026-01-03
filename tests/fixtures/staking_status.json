@@ -1,0 +1,16 @@
+{
+  "staking_status": true,
+  "staking_enabled": true,
+  "coldstaking_enabled": false,
+  "haveconnections": true,
+  "mnsync": true,
+  "walletunlocked": true,
+  "stakeablecoins": 150,
+  "stakingbalance": 7500.0,
+  "stakesplitthreshold": 2000.0,
+  "lastattempt_age": 45,
+  "lastattempt_depth": 2,
+  "lastattempt_hash": "0000000000000abcdef1234567890abcdef1234567890abcdef1234567890abc",
+  "lastattempt_coins": 75,
+  "lastattempt_tries": 12345
+}

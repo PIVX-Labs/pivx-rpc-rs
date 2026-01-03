@@ -1,0 +1,47 @@
+{
+  "txid": "abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+  "version": 2,
+  "type": 0,
+  "size": 225,
+  "locktime": 0,
+  "hex": "0200000001fedcba0987654321",
+  "vin": [
+    {
+      "txid": "fedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "304402201234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef02201234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef01",
+        "hex": "47304402201234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef02201234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef01"
+      },
+      "sequence": 4294967294
+    }
+  ],
+  "vout": [
+    {
+      "value": 10.5,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 abcdef1234567890abcdef1234567890abcdef12 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914abcdef1234567890abcdef1234567890abcdef1288ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": ["DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6"]
+      }
+    },
+    {
+      "value": 39.25,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 1234567890abcdef1234567890abcdef12345678 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a9141234567890abcdef1234567890abcdef1234567888ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": ["D7VFR83SQbiezrW72hjcWJtcfip5krte2Z"]
+      }
+    }
+  ],
+  "blockhash": "0000000000000abcdef1234567890abcdef1234567890abcdef1234567890abc",
+  "confirmations": 100,
+  "time": 1704240000,
+  "blocktime": 1704240000
+}

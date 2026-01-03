@@ -1,0 +1,19 @@
+{
+  "hash": "0000000000000abcdef1234567890abcdef1234567890abcdef1234567890abc",
+  "confirmations": 12345,
+  "height": 1000000,
+  "version": 7,
+  "merkleroot": "abcdef1234567890abcdef1234567890abcdef1234567890abcdef123456789",
+  "time": 1704240000,
+  "mediantime": 1704239500,
+  "nonce": 987654321,
+  "bits": "1a0fffff",
+  "difficulty": 1234.5678,
+  "chainwork": "00000000000000000000000000000000000000000000001234567890abcdef",
+  "acc_checkpoint": "fedcba0987654321fedcba0987654321fedcba0987654321fedcba098765432",
+  "shield_pool_value": {
+    "chainValue": 5000000.0,
+    "valueDelta": 100.0
+  },
+  "previousblockhash": "0000000000000fedcba9876543210fedcba9876543210fedcba987654321000"
+}
