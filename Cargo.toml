@@ -1,13 +1,20 @@
 [package]
 name = "pivx_rpc_rs"
 version = "0.1.1"
+authors = ["Liquid369"]
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+rust-version = "1.63"
+license = "MIT"
+description = "A Rust library for interacting with PIVX Core via JSON-RPC"
+documentation = "https://docs.rs/pivx_rpc_rs"
+homepage = "https://github.com/PIVX-Labs/pivx-rpc-rs"
+repository = "https://github.com/PIVX-Labs/pivx-rpc-rs"
+readme = "README.md"
+keywords = ["pivx", "cryptocurrency", "rpc", "blockchain", "json-rpc"]
+categories = ["api-bindings", "cryptography::cryptocurrencies"]
 
 [dependencies]
-failure = "0.1.5"
-reqwest = "0.9.18"
-serde = { version = "1.0.92", features = ["derive"] }
-serde_json = { version = "1.0.39" }
-throttled_json_rpc = "0.0.5"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+reqwest = { version = "0.12", features = ["blocking", "json"] }
+pivx-throttled-jsonrpc = "0.1"
