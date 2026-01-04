@@ -12,3 +12,11 @@ Cargo.lock
 
 # MSVC Windows builds of rustc generate these, which store debugging information
 *.pdb
+
+# Development process documentation (internal only)
+*_COMPLETION_REPORT.md
+CRATE_READINESS_REVIEW.md
+COMMIT_PLAN.md
+GIT_COMMANDS.md
+*.backup
+*.bak
